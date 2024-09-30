@@ -21,7 +21,9 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs
       - name: Run tests
-        run: php -d pcov.enabled=1 vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
+        run: ./vendor/bin/pest --coverage-clover=build/logs/clover.xml
+      - name: Generate Type Coverage
+        run: ./vendor/bin/pest --type-coverage --type-coverage-json=pest-type-coverage.json
       - name: Upload Coverage
         env:
           OTTERWISE_TOKEN: ${{ secrets.OTTERWISE_TOKEN }}
